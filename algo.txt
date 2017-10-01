@@ -1,0 +1,187 @@
+var MORSE_CODE = {
+  "A": ".-",
+  "B": "-...",
+  "C": "-.-.",
+  "D": "-..",
+  "E": ".",
+  "F": "..-.",
+  "G": "--.",
+  "H": "....",
+  "I": "..",
+  "J": ".---",
+  "K": "-.-",
+  "L": ".-..",
+  "M": "--",
+  "N": "-.",
+  "O": "---",
+  "P": ".--.",
+  "Q": "--.-",
+  "R": ".-.",
+  "S": "...",
+  "T": "-",
+  "U": "..-",
+  "V": "...-",
+  "W": ".--",
+  "X": "-..-",
+  "Y": "-.--",
+  "Z": "--..",
+  "0": "-----",
+  "1": ".----",
+  "2": "..---",
+  "3": "...--",
+  "4": "....-",
+  "5": ".....",
+  "6": "-....",
+  "7": "--...",
+  "8": "---..",
+  "9": "----.",
+  "Fullstop": ".-.-.-",
+};
+
+var HUMAN_TXT = {  
+  ".-": "A",
+  "-...": "B",
+  "-.-.": "C",
+  "-..": "D",
+  ".": "E",
+  "..-.": "F",
+  "--.": "G",
+  "....": "H",
+  "..": "I",
+  ".---": "J",
+  "-.-": "K",
+  ".-..": "L",
+  "--": "M",
+  "-.": "N",
+  "---": "O",
+  ".--.": "P",
+  "--.-": "Q",
+  ".-.": "R",
+  "...": "S",
+  "-": "T",
+  "..-": "U",
+  "...-": "V",
+  ".--": "W",
+  "-..-": "X",
+  "-.--": "Y",
+  "--..": "Z",
+  "-----": "0",
+  ".----": "1",
+  "..---": "2",
+  "...--": "3",
+  "....-": "4",
+  ".....": "5",
+  "-....": "6",
+  "--...": "7",
+  "---..": "8",
+  "----.": "9",
+  //"Fullstop": ".-.-.-",
+};
+
+var inp = $("#txta1");
+var out = $("#txta2");
+var btn = $("button");
+
+/***
+    Catch Convert click event.
+***/
+conv.addEventListener("click", function() {
+  var str = inp.val();
+     
+  str = str.toUpperCase();
+  str = str.trim(); //Remove whitespace from both sides of str
+  var arr = str.split(""); //Divide str into the arr
+  
+  if (isEmpty(str)) {
+     alert("Empty field. Please, insert a new text.");
+  } else {
+    checkConvertionType(str);    
+  }  
+});
+
+/***
+    Catch Clear click event.
+***/
+clear.addEventListener("click", function() {
+  eraseText();
+});
+
+/***  Check if textarea == empty. 
+      Param: str.
+      Return boolean.
+***/
+var isEmpty = function(str) {
+  if (str == '') {
+    return true;
+  }else {
+    return false;
+  }
+} 
+
+/***  Check type of convertion = Morse to Text or Text to Morse. 
+      Param: slc, str.
+      Return: void.
+***/
+function checkConvertionType(str) {
+    var re = /[A-Za-z]/;
+    var slc = $("select");
+  
+    if (slc.val() == 'Text to Morse') {
+      if (str[0].match(re)) {
+        toMorse(str);
+      } else {
+        alert('If you want to convert human text to code morse, you should insert human text first.');
+        eraseText();
+      }
+    } else {
+      if (! (str[0].match(re))) {
+        toHuman(str);
+      } else {
+        alert('If you want to convert code morse to human text, you should insert code morse first.');
+        eraseText();
+      }
+    }
+}
+
+/***  Coverte human text into code morse.  
+      Param: Human Text.
+      Return: Code Morse.
+****/
+var toMorse = function(humanCode) {
+  var decoded = [];
+  //var words = (humanCode).toUpperCase();
+  humanCode = (humanCode).split('');
+  for (var i = 0; i < humanCode.length; i++) {
+    decoded[i] = MORSE_CODE[humanCode[i]];
+  }
+  decoded = decoded.join(" ");
+  //console.log(str);
+  out.val(decoded);
+}
+
+/***  Coverte code morse into human text.
+      Param: Code Morse.
+      Return: Human Text.
+****/
+var toHuman = function(morseCode){
+  var words = (morseCode).split('  ');
+  var letters = words.map((w) => w.split(' '));
+  var decoded = [];
+  for(var i = 0; i < letters.length; i++){
+    decoded[i] = [];
+    for(var x = 0; x < letters[i].length; x++){
+      if( HUMAN_TXT[letters[i][x]] ){
+        decoded[i].push( HUMAN_TXT[letters[i][x]] );
+      }
+    }
+  }
+  decoded = decoded.map( arr => arr.join('') ).join(' ');
+  out.val(decoded);
+}
+
+/*** Clear Textarea.
+***/
+function eraseText() {
+  document.getElementById("txta1").value = "";
+  document.getElementById("txta2").value = "";
+}
