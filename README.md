@@ -16,7 +16,8 @@ These instructions will get you a copy of the project up and running on your loc
   1. Clone the repo: git clone git@github.com:maihavela/codeConvertion.git
   2. cd codeConvertion.git
   3. npm install
-  4. npm start
+  4. node server.js
+  
 Your app should now be running on localhost:8080.
 
 
