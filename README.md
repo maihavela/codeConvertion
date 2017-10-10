@@ -1,4 +1,4 @@
-Code Convertions 
+CODE CONVERTIONS
 
 A Node.js app using Express, to manage convertions from human text to code morse and from code morse to human text.
 
