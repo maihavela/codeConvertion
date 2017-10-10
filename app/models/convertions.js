@@ -14,7 +14,6 @@ exports.toMorse = function(humanCode, cb) {
     }
     decoded = decoded.join(" ");
     cb(decoded);
-    //return decoded;
 }
 
 /***  Coverte code morse into human text.
@@ -22,7 +21,7 @@ exports.toMorse = function(humanCode, cb) {
         Return: Human Text (Array).
 ****/
 exports.toText = function(morseCode, cb) {
-morseCode = morseCode.replace(':', ' ');
+    morseCode = morseCode.replace(':', ' ');
 
     var words = morseCode.split('  ');
     var letters = words.map((w) => w.split(' '));

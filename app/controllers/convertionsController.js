@@ -3,8 +3,6 @@ const convertions = require('../models/convertions');
 exports.toMorse = function(req, res) {
     var txt = req.params.txt;    
     convertions.toMorse(txt, function(converted, err) {
-        console.log('err ' + err);
-        console.log('err ' + err);
         if(err) {
             return res.status(404).json({
                 message: 'Text is missing.',
@@ -31,7 +29,6 @@ exports.toMorse = function(req, res) {
    
 exports.toText = function(req, res) {
     var txt = req.params.txt;
-    console.log(txt);
     convertions.toText(txt, function(converted, err) {
         if(err) {
             return res.status(400).json({
