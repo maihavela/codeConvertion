@@ -22,15 +22,12 @@ exports.toMorse = function(humanCode, cb) {
 ****/
 exports.toText = function(morseCode, cb) {
     morseCode = morseCode.replace(':', ' ');
-
     var words = morseCode.split('  ');
     var letters = words.map((w) => w.split(' '));
     var decoded = [];
-    console.log(letters);
     for(var i = 0; i < letters.length; i++){
         decoded[i] = [];
         for(var x = 0; x < letters[i].length; x++){
-            console.log(HUMAN_TXT[ letters[i][x] ]);
             if( HUMAN_TXT[ letters[i][x] ] ){                
                 decoded[i].push(HUMAN_TXT[letters[i][x]]);
             }
